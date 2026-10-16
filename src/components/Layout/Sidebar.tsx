@@ -1,8 +1,9 @@
 import React from 'react';
-import { Building2, Phone, UserCheck, Shield } from 'lucide-react';
+import { Building2, Phone, UserCheck, Shield, FileSearch } from 'lucide-react';
 import { convenios } from '../../data/convenios';
+import { convenioCodigos } from '../../data/codigos';
 
-export type MainTab = 'convenios' | 'ramais' | 'medicos';
+export type MainTab = 'convenios' | 'exames' | 'ramais' | 'medicos';
 
 interface SidebarProps {
   currentTab: MainTab;
@@ -17,6 +18,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
   selectedConvenioId,
   onSelectConvenio,
 }) => {
+  const conveniosComExamesCount = convenios.filter(
+    (c) => Boolean(convenioCodigos[c.id] && convenioCodigos[c.id].length > 0)
+  ).length;
+
   return (
     <aside className="sidebar">
       {/* Brand Header */}
@@ -30,7 +35,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </div>
 
-      {/* Navigation Tabs - Exatamente os 3 menus solicitados */}
+      {/* Navigation Tabs */}
       <nav className="sidebar-nav-tabs">
         <button
           className={`sidebar-nav-btn ${currentTab === 'convenios' ? 'active' : ''}`}
@@ -48,6 +53,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
             }}
           >
             {convenios.length}
+          </span>
+        </button>
+
+        <button
+          className={`sidebar-nav-btn ${currentTab === 'exames' ? 'active' : ''}`}
+          onClick={() => onSelectTab('exames')}
+        >
+          <FileSearch size={17} />
+          <span>Seleção de Exame</span>
+          <span
+            style={{
+              marginLeft: 'auto',
+              fontSize: '11px',
+              padding: '2px 7px',
+              borderRadius: 'var(--radius-full)',
+              background: currentTab === 'exames' ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.06)',
+            }}
+          >
+            {conveniosComExamesCount}
           </span>
         </button>
 

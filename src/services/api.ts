@@ -29,6 +29,14 @@ export const ApiService = {
     return Promise.resolve(convenios);
   },
 
+  // Retorna lista de convênios que possuem códigos de exame cadastrados
+  async getConveniosComCodigos(): Promise<Convenio[]> {
+    const list = convenios.filter(
+      (c) => Boolean(convenioCodigos[c.id] && convenioCodigos[c.id].length > 0)
+    );
+    return Promise.resolve(list);
+  },
+
   // Retorna regras de um convênio específico
   async getRulesByConvenio(convenioId: string): Promise<RuleSection[]> {
     return Promise.resolve(convenioRules[convenioId] || []);

@@ -28,8 +28,9 @@ npm run build
 consulta-convenios/
 ├── src/
 │   ├── components/
-│   │   ├── Layout/          # Sidebar com 3 menus (Convênios, Ramais, Escala Médica / US) e Header
-│   │   ├── Convenios/       # Painel com 3 dropdowns + sub-menus de Regras e Códigos
+│   │   ├── Layout/          # Sidebar com 4 menus (Convênios, Seleção de Exame, Ramais, Escala Médica / US) e Header
+│   │   ├── Convenios/       # Painel de convênios + sub-menus de Regras e Códigos
+│   │   ├── Exames/          # Nova aba de seleção em 2 passos (1º Convênio -> 2º Exame)
 │   │   ├── Codigos/         # Tabela de códigos dividida em sub-áreas específicas
 │   │   ├── Ramais/          # Telefonia interna agrupada por andar e setor
 │   │   └── Medicos/         # Escala médica, exames atendidos e restrições de agendamento

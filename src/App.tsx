@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Sidebar, MainTab } from './components/Layout/Sidebar';
 import { Header } from './components/Layout/Header';
 import { ConveniosMainView, ConvenioSubTab } from './components/Convenios/ConveniosMainView';
+import { SelecaoExamesTab } from './components/Exames/SelecaoExamesTab';
 import { RamaisTab } from './components/Ramais/RamaisTab';
 import { MedicosTab } from './components/Medicos/MedicosTab';
 import { useConvenio } from './hooks/useConvenio';
 import { GlobalSearchResult } from './hooks/useSearch';
 
 export const App: React.FC = () => {
-  // Menu principal da Sidebar: Convênios | Ramais | Escala Médica / US
+  // Menu principal da Sidebar: Convênios | Seleção de Exame | Ramais | Escala Médica / US
   const [currentTab, setCurrentTab] = useState<MainTab>('convenios');
 
   // Sub-menu central para Convênios: Regras do Convênio | Tabela de Códigos
@@ -36,6 +37,8 @@ export const App: React.FC = () => {
     } else if (result.tab === 'codigos') {
       setCurrentTab('convenios');
       setConvenioSubTab('codigos');
+    } else if (result.tab === 'exames') {
+      setCurrentTab('exames');
     } else {
       setCurrentTab('convenios');
       setConvenioSubTab('regras');
@@ -44,7 +47,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="app-container">
-      {/* Sidebar Lateral com os 3 menus principais: Convênios - Ramais - Escala Médica / US */}
+      {/* Sidebar Lateral com os menus principais */}
       <Sidebar
         currentTab={currentTab}
         onSelectTab={setCurrentTab}
@@ -60,7 +63,7 @@ export const App: React.FC = () => {
         <Header onSelectResult={handleSelectSearchResult} />
 
         <main className="content-scrollable">
-          {/* Aba 1: Convênios (3 dropdowns + sub-menus de Regras e Códigos) */}
+          {/* Aba 1: Convênios (Regras e Códigos) */}
           {currentTab === 'convenios' && (
             <ConveniosMainView
               convenio={selectedConvenio}
@@ -70,6 +73,18 @@ export const App: React.FC = () => {
               codigosSubAreas={codigosSubAreas}
               activeSubTab={convenioSubTab}
               onChangeSubTab={setConvenioSubTab}
+            />
+          )}
+
+          {/* Aba Nova: Seleção de Exames por Convênio */}
+          {currentTab === 'exames' && (
+            <SelecaoExamesTab
+              initialConvenioId={selectedId}
+              onNavigateToConvenios={(convId, subTab) => {
+                setSelectedId(convId);
+                setCurrentTab('convenios');
+                setConvenioSubTab(subTab);
+              }}
             />
           )}
 

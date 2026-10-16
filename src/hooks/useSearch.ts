@@ -13,7 +13,7 @@ export interface GlobalSearchResult {
   subtitle: string;
   badge?: string;
   targetId?: string; // convenio id, floor, etc.
-  tab?: 'convenios' | 'codigos' | 'ramais' | 'medicos';
+  tab?: 'convenios' | 'codigos' | 'ramais' | 'medicos' | 'exames';
 }
 
 export function useGlobalSearch() {
